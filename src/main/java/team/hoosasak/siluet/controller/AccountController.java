@@ -23,6 +23,7 @@ public class AccountController {
 
     @RequestMapping(value = "/account/login/facebook", method = RequestMethod.POST)
     private ResponseEntity<?> loginWithFacebook(@RequestParam String token) {
+        System.out.println(token);
         try {
             URL url = new URL("https://graph.facebook.com/me?fields=id&access_token=\"" + token + "\"");
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"))) {
@@ -32,7 +33,7 @@ public class AccountController {
                 e.printStackTrace();
             }
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            System.out.println("token not found");
         }
         return new ResponseEntity<>(token, HttpStatus.OK);
     }
